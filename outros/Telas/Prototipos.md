@@ -1,5 +1,5 @@
 ## Tela Principal (Main)
-![mainscreen](http://i.imgur.com/H9uTQsS.jpg)
+<img src="http://i.imgur.com/H9uTQsS.jpg" width="308">
 
 ## Resultado da Busca
-![returnsearch](http://i.imgur.com/3nvN2X2.jpg)
+<img src="http://i.imgur.com/3nvN2X2.jpg" width="308">

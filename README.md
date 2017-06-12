@@ -8,7 +8,7 @@ Um aplicativo que permite encontrar coordenadas físicas/localizações em pági
 
 ## Persona
 
-> José vende pão desde que se entende por gente. Sua padaria, negócio familiar, serve muito bem o bairro em que se estabeleceu a quase 22 anos atrás, e por vezes fora mencionado em levantamento de jornalismo local sobre os melhores lugares para se deliciar com quitandas. Mas josé não possui uma presença virtual forte o suficiente e o medo/confusão das tecnologias mantém josé longe dos contatos virtuais. Eis que seu sobrinho decide por criar uma página da padaria para postar umas fotos das delícias produzidas naquele mundo fermentado. Agora pessoas sabem sobre a existência de uma padaria, mas não sabem como chegar no endereço.
+https://docs.google.com/presentation/d/1z5fROrK5F9Khz7VrjJFpzZ1TG0veCCsHs6QnkIc9-8g/edit?usp=sharing
 
 ## Escopo
 

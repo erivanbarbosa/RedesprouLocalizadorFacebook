@@ -4,28 +4,28 @@ Um aplicativo que permite encontrar coordenadas físicas/localizações em pági
 
 ## Justificativa
 
-> Com um mundo cada vez mais dependente da tecnologia, não possuir um cartão de visita eletrônico é basicamente um voto de não-comunhão com o mercado moderno. De websites inteiros a portifólios, todos que buscam comercializar um produto hoje em dia devem recorrer ao digital como um reforço de sua presença no mundo real. Mas em situações onde se precisa do contato físico, o cartão deve ser completo; possuir endereço e localização é o ponto-chave no qual nossa ideia busca auxilia-lo.
+> Conforme a tecnologia avança, a internet, a computação e as redes sociais vão ocupando novos espaços na vida das pessoas torna-se mais fácil se comunicar com amigos e parentes, procurar uma pessoa que não se vê há muito tempo, encontrar o endereço de uma empresa, etc. Por outro lado, aindam existem muitas pessoas cujo interesse nessas tecnologias é baixo e/ou controlado. Essas pessoas não estão interessadas em publicar ou conhecer opiniões publicas por outras pessoas que elas sequer conhecem, não estão preocupadas se só poderão ler as mensagens recebidas em facebook ou whatsapp 40 minutos depois, quando chegeram em casa ou no trabalho e não estão dispostas a receberem todos os posts publicados pela página de um barzinho só porque certa vez elas pesquisaram por ele no Facebook.
 
 ## Persona
-> José mudou-se de Goiânia para a São Paulo por ser promocionado pela empresa em que trabalha. José agora encontra-se em uma grande metrópole na qual não tem conhecimento algum dos ambientes comerciais do local. José, que utiliza o facebook para encontrar pessoas e negócios, agora passa a necessitar desta ferramenta mais do que nunca. Porém José não tem disponibilidade de internet que possa cobrir o uso descabido da plataforma facebook nas suas necessárias andanças e acomodações com a nova vida na nova capital e ainda sim precisa dessa disponibilidade em função do conforto da escolha.
+> Benerim é um estudante de ciências sociais de 20 anos, que faz uso moderado/baixo de redes sociais.
+https://docs.google.com/presentation/d/1z5fROrK5F9Khz7VrjJFpzZ1TG0veCCsHs6QnkIc9-8g/edit?usp=sharing
 
 ## Escopo
+> O Localizador Facebook é um software mobile desenvolvido para smartphones rodando o sistema operacional android, que permite que usuários pesquisem páginas de estabelecimentos no facebook, identifiquem seus endereços, e agendem visitas (do lado do cliente apenas).
+O aplicativo armazenada as informações daquela página e avisa o usuário no dia da visita, mesmo que ele não tenha acesso a internet no momento.
 
-> Uma única interface, uma única funcionalidade. Encontrar páginas e exibi-las segundo o endereço e as coordenadas geográficas 
-
-> O usuário poderá levantar todas as páginas que possuem trecho do conteúdo pesquisado e poderá filtrar quantas páginas aparecem por vez, na lista que será gerada no momento que colocar-se para buscar.
-
-> Como usuário, este poderá realizar pesquisas e a interação com o facebook tratará por retornar todos os objetos encontrados contendo o especiado de busca levantado por ele (o usuário) assim como suas mais diversas localidades no globo, começando claro, pelo raio de proximidade e distanciando cada vez mais na pilha de objetos encontrados.
 
 ## Serviços do dispositivo móvel
 #### Quais serviços você utilizará do aparelho? Ex: internet, GPS, notificações, alarme,etc.
 > * *Internet*
 > * *Armazenamento de dados / Espaço em disco*
+> * *Notificações*
+> * *Alarme*
 
 ## Restrições relacionadas a mobilidade
 #### O seu projeto terá especificamente alguma restrição que o contexto móvel o dará?
-> * O usuário necessitará do uso de internet para interagir com o aplicativo.
+> * O usuário necessitará do uso de internet para pesquisar novos estabelecimentos.
 
 ## Soluções para as restrições
 #### Como seu projeto solucionará os problemas relacionados ao contexto móvel?
-> * Uma vez pesquisado, nem as coordenadas, nem o endereço iram tornar-se indisponíveis com a perda do sinal de internet 
+> * As páginas de interesse do usuário ficarão armazenadas localmente. 

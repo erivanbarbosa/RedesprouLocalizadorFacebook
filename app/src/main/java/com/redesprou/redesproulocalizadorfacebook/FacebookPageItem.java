@@ -9,6 +9,11 @@ public class FacebookPageItem {
     private String nomePagina;
     private String descricaoPagina;
 
+    public FacebookPageItem(String s, String s1) {
+        nomePagina = s;
+        descricaoPagina = s1;
+    }
+
     public String getNomePagina() {
         return nomePagina;
     }

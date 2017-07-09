@@ -3,6 +3,7 @@ package com.redesprou.redesproulocalizadorfacebook;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.hardware.camera2.params.Face;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,6 +33,7 @@ import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -46,16 +48,29 @@ public class MainActivity extends AppCompatActivity  {
     Spinner numberOfResultsSpinner;
     public static CallbackManager callbackManager;
     RecyclerView recyclerView;
-
+    private RecyclerView.Adapter adapter;
+    private List<FacebookPageItem> facebookPageItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView );
+        recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        final ItemAdapter itemAdapter = new ItemAdapter();
+        facebookPageItems = new ArrayList<FacebookPageItem>();
+
+        for(int i = 0; i < 10; i++ ) {
+            FacebookPageItem item = new FacebookPageItem( "Pagina" + (i+1), "Lorem Ipsum");
+            facebookPageItems.add(item);
+        }
+
+        adapter = new ItemAdapter(facebookPageItems, this);
+        recyclerView.setAdapter( adapter );
+
+
+        //final ItemAdapter itemAdapter = new ItemAdapter();
         callbackManager = CallbackManager.Factory.create();
 
         initViews();

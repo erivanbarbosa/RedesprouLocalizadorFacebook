@@ -1,6 +1,7 @@
 package com.redesprou.redesproulocalizadorfacebook;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -17,10 +18,12 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
@@ -32,6 +35,7 @@ import com.facebook.appevents.AppEventsLogger;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.facebook.GraphRequest.*;
 import static com.facebook.internal.FacebookDialogFragment.TAG;
 
 public class MainActivity extends AppCompatActivity  {
@@ -77,8 +81,15 @@ public class MainActivity extends AppCompatActivity  {
                 Log.i(TAG, "Facebook login error.");
             }
         });
-    }
 
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+    }
 
     public void initViews(){
         loginButton = (LoginButton) findViewById(R.id.login_button);
@@ -91,5 +102,26 @@ public class MainActivity extends AppCompatActivity  {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
+
+
+    public static void PlaceRequest(int resultLimit, String searchText, GraphJSONArrayCallback callback, Context context) {
+        try {
+            if (AccessToken.getCurrentAccessToken() != null) {
+                GraphRequest request = newPlacesSearchRequest
+                        (AccessToken.getCurrentAccessToken(), null, Integer.MAX_VALUE, resultLimit, searchText, callback);
+
+                request.executeAsync();
+            } else {
+                Toast.makeText(context, "Por favor, logue primeiro!", Toast.LENGTH_LONG).show();
+            }
+        }
+        catch ( Exception e)
+        {
+            Toast.makeText(context, "Digite um valor válido!", Toast.LENGTH_LONG).show();
+        }
+
+
+    }
+
 
 }

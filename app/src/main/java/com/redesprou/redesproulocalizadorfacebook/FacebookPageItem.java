@@ -11,10 +11,7 @@ public class FacebookPageItem {
     private String identificador;
     private GraphLocation local;
     
-retirar a linha do include
-
-retirar a palavra item do nome das variáveis.
-Deve ser apenas name, category, id e location.
+    
     public FacebookPageItem(String s, String s1, String s2) {
         nome = s;
         categoria = s1;

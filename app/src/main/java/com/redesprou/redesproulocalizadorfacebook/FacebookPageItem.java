@@ -3,46 +3,48 @@ package com.redesprou.redesproulocalizadorfacebook;
 /**
  * Created by Fulanuc on 09/07/2017.
  */
-#include "graphlocation.h"
 
 public class FacebookPageItem {
 
-    private String nomePagina;
-    private String itemCategory;
-    private String itemID;
-    private Graphlocation location;
+    private String nome;
+    private String categoria;
+    private String identificador;
+    private GraphLocation local;
     
+retirar a linha do include
 
+retirar a palavra item do nome das variáveis.
+Deve ser apenas name, category, id e location.
     public FacebookPageItem(String s, String s1, String s2) {
-        nomePagina = s;
-        itemCategory = s1;
-        itemID = s2;
+        nome = s;
+        categoria = s1;
+        identificador = s2;
     }
 
-    public String getNomePagina() {
-        return nomePagina;
+    public String getNome() {
+        return nome;
     }
 
-    public void setNomePagina(String nomePagina) {
-        this.nomePagina = nomePagina;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
     
-    public String getItemCategory(String itemCategory) {
-        return itemCategory;
+    public String getCategoria(String categoria) {
+        return categoria;
     }
     
-    public void setItemCategory() {
-        this.itemCategory = itemCategory;
+    public void setCategoria() {
+        this.categoria = categoria;
     }
     
-    public String getItemID(String itemID) {
-        return itemID;
+    public String getIdentificador(String identificador) {
+        return identificador;
     }
     
-    public void setItemID() {
-        this.itemID = itemID;
+    public void setIdentificador() {
+        this.identificador = identificador;
     }
-    public Graphlocation getLocation() {
-        return location;
+    public GraphLocation getLocal() {
+        return local;
     }
 }

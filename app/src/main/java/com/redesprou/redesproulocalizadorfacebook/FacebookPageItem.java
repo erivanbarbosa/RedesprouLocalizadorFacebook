@@ -8,14 +8,15 @@ public class FacebookPageItem {
 
     private String nome;
     private String categoria;
-    private String identificador;
-    private GraphLocation local;
+    private String id;
+    private GraphObject local;
     
     
-    public FacebookPageItem(String s, String s1, String s2) {
-        nome = s;
-        categoria = s1;
-        identificador = s2;
+    
+    public FacebookPageItem(String infoNome, String infoCategoria, String infoId) {
+        nome = infoNome;
+        categoria = infoCategoria;
+        id = infoId;
     }
 
     public String getNome() {
@@ -34,14 +35,14 @@ public class FacebookPageItem {
         this.categoria = categoria;
     }
     
-    public String getIdentificador(String identificador) {
-        return identificador;
+    public String getId(String id) {
+        return id;
     }
     
-    public void setIdentificador() {
-        this.identificador = identificador;
+    public void setId() {
+        this.id = id;
     }
-    public GraphLocation getLocal() {
+    public GraphObject getLocal() {
         return local;
     }
 }

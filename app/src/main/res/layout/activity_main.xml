@@ -8,68 +8,75 @@
     android:paddingBottom="16dp">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/com_facebook_button_background_color_selected"
+        android:orientation="vertical">
 
         <RelativeLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_alignParentStart="false">
+            android:layout_alignParentStart="false"
+            android:orientation="horizontal">
 
 
             <com.facebook.login.widget.LoginButton
                 android:id="@+id/login_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="30dp" />
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="center_horizontal" />
 
 
         </RelativeLayout>
 
         <RelativeLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="73dp"
-            android:layout_gravity="center_horizontal">
+            android:layout_gravity="center_horizontal"
+            android:background="@color/com_facebook_button_login_silver_background_color_pressed"
+            android:orientation="horizontal">
 
 
             <Button
+                android:id="@+id/search_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Search"
-                android:id="@+id/search_button"
-                android:layout_alignParentTop="true"
+                android:layout_alignBottom="@+id/search_EditText"
+                android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignTop="@+id/search_EditText"
+                android:layout_toEndOf="@+id/search_Spinner"
+                android:background="@drawable/com_facebook_button_background"
+                android:text="Search"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:textColor="@color/com_facebook_button_login_silver_background_color" />
 
             <EditText
+                android:id="@+id/search_EditText"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/search_EditText"
-                android:hint="Search Place"
-                android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentBottom="true"
-                android:layout_alignTop="@+id/search_Spinner" />
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="17dp"
+                android:hint="Search Place" />
 
             <Spinner
+                android:id="@+id/search_Spinner"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:id="@+id/search_Spinner"
-                android:layout_toRightOf="@id/search_EditText"
+                android:layout_alignParentBottom="false"
                 android:layout_toEndOf="@id/search_EditText"
-                android:layout_alignParentBottom="false" />
+                android:layout_toRightOf="@id/search_EditText" />
         </RelativeLayout>
 
         <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/recyclerView"
             android:layout_below="@+id/search_EditText" />
     </LinearLayout>
 

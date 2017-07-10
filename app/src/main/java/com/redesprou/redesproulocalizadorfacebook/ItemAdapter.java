@@ -1,6 +1,7 @@
 package com.redesprou.redesproulocalizadorfacebook;
 
 import android.content.Context;
+import android.hardware.camera2.params.Face;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,7 +67,11 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             textViewNome = (TextView) itemView.findViewById(R.id.facebookPageItemHead );
             textViewDescricao = (TextView) itemView.findViewById(R.id.facebookPageItemDesc);
         }
-
-
     }
+
+        public void addPage(FacebookPageItem item ) {
+            facebookPageItems.add( item );
+
+            notifyDataSetChanged();
+        }
 }

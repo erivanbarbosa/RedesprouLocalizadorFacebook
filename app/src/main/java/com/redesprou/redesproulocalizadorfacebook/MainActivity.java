@@ -25,6 +25,7 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
@@ -33,14 +34,19 @@ import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import static com.facebook.GraphRequest.*;
 import static com.facebook.internal.FacebookDialogFragment.TAG;
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity {
 
     LoginButton loginButton;
     Button searchButton;
@@ -48,34 +54,29 @@ public class MainActivity extends AppCompatActivity  {
     Spinner numberOfResultsSpinner;
     public static CallbackManager callbackManager;
     RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
+    private ItemAdapter adapter;
     private List<FacebookPageItem> facebookPageItems;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView );
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         facebookPageItems = new ArrayList<FacebookPageItem>();
 
-        for(int i = 0; i < 10; i++ ) {
-            FacebookPageItem item = new FacebookPageItem( "Pagina" + (i+1), "Lorem Ipsum");
-            facebookPageItems.add(item);
-        }
-
         adapter = new ItemAdapter(facebookPageItems, this);
-        recyclerView.setAdapter( adapter );
-
+        recyclerView.setAdapter(adapter);
 
         //final ItemAdapter itemAdapter = new ItemAdapter();
         callbackManager = CallbackManager.Factory.create();
 
         initViews();
-        List<String> permitions = Arrays.asList("email", "public_profile", "user_friends", "user_location", "user_likes");
-        loginButton.setReadPermissions( permitions );
+        final List<String> permitions = Arrays.asList("email", "public_profile", "user_friends", "user_location", "user_likes");
+        loginButton.setReadPermissions(permitions);
 
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -97,21 +98,49 @@ public class MainActivity extends AppCompatActivity  {
             }
         });
 
+        context = this;
+        final ArrayList<JSONObject> objectList = new ArrayList<JSONObject>();
+
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                RequestsController.requestPlace(null, Integer.MAX_VALUE, 100, searchEditText.getText().toString(),
+                        new GraphRequest.GraphJSONArrayCallback() {
+                    @Override
+                    public void onCompleted(JSONArray array, GraphResponse response) {
+                        for(int i = 0; i < array.length(); i++ )
+                        {
+                            try {
+                                JSONObject object = null;
+                                object = array.getJSONObject(i);
 
+                                String nome = object.getString("name");
+                                String descricao = object.getString("id");
+
+                                adapter.addPage( new FacebookPageItem(nome, descricao));
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    }
+                }, context );
             }
+
+
         });
 
     }
 
-    public void initViews(){
+    public void initViews() {
         loginButton = (LoginButton) findViewById(R.id.login_button);
         searchButton = (Button) findViewById(R.id.search_button);
         searchEditText = (EditText) findViewById(R.id.search_EditText);
-        numberOfResultsSpinner = (Spinner) findViewById(R.id.search_Spinner );
+        numberOfResultsSpinner = (Spinner) findViewById(R.id.search_Spinner);
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -129,9 +158,7 @@ public class MainActivity extends AppCompatActivity  {
             } else {
                 Toast.makeText(context, "Por favor, logue primeiro!", Toast.LENGTH_LONG).show();
             }
-        }
-        catch ( Exception e)
-        {
+        } catch (Exception e) {
             Toast.makeText(context, "Digite um valor válido!", Toast.LENGTH_LONG).show();
         }
 

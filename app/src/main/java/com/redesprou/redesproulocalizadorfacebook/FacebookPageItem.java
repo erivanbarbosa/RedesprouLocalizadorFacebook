@@ -6,27 +6,46 @@ package com.redesprou.redesproulocalizadorfacebook;
 
 public class FacebookPageItem {
 
-    private String nomePagina;
-    private String descricaoPagina;
-
-    public FacebookPageItem(String s, String s1) {
-        nomePagina = s;
-        descricaoPagina = s1;
+    private String nome;
+    private String categoria;
+    private String id;
+    private GraphObject local;
+    
+    
+    
+    public FacebookPageItem(String infoNome, String infoCategoria, String infoId) {
+        nome = infoNome;
+        categoria = infoCategoria;
+        id = infoId;
     }
 
-    public String getNomePagina() {
-        return nomePagina;
+    public String getNome() {
+        return nome;
     }
 
-    public void setNomePagina(String nomePagina) {
-        this.nomePagina = nomePagina;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
-
-    public String getDescricaoPagina() {
-        return descricaoPagina;
+    
+    public String getCategoria(String categoria) {
+        return categoria;
     }
-
-    public void setDescricaoPagina(String descricaoPagina) {
-        this.descricaoPagina = descricaoPagina;
+    
+    public void setCategoria() {
+        this.categoria = categoria;
+    }
+    
+    public String getId(String id) {
+        return id;
+    }
+    
+    public void setId() {
+        this.id = id;
+    }
+    public GraphObject getLocal() {
+        return local;
+    }
+    public void setLocal(GraphObject local) {
+       this.local = local;
     }
 }

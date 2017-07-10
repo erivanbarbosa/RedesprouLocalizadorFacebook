@@ -45,4 +45,7 @@ public class FacebookPageItem {
     public GraphObject getLocal() {
         return local;
     }
+    public void setLocal(GraphObject local) {
+       this.local = local;
+    }
 }

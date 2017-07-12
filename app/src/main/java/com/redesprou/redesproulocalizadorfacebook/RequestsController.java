@@ -13,11 +13,11 @@ import com.facebook.GraphRequest;
 public class RequestsController {
 
 
-    public static void requestPlace(Location location, int distanceRadius, int resultLimits, String searchText,
+    public static void requestPlace(int distanceRadius, int resultLimits, String searchText,
                                     GraphRequest.GraphJSONArrayCallback callback, Context context){
 
         GraphRequest request = GraphRequest.newPlacesSearchRequest(AccessToken.getCurrentAccessToken(),
-                null, distanceRadius, resultLimits, searchText, callback);
+                null, Integer.MAX_VALUE, 50, searchText, callback);
 
         request.executeAsync();
     }

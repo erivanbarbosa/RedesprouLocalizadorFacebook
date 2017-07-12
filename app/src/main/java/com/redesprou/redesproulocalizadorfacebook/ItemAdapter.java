@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.redesprou.redesproulocalizadorfacebook.util.PlaceFieldsUtil;
+
 import org.w3c.dom.Text;
 
 import java.util.List;
@@ -47,8 +49,9 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     public void onBindViewHolder(ItemAdapter.ViewHolder holder, int position) {
         FacebookPageItem facebookPageItem = facebookPageItems.get(position);
 
-        holder.textViewNome.setText(facebookPageItem.getNomePagina());
-        holder.textViewDescricao.setText(facebookPageItem.getDescricaoPagina());
+        holder.textViewNome.setText(facebookPageItem.getNome());
+        holder.textViewCategoria.setText(PlaceFieldsUtil.tratarCategoria(facebookPageItem.getCategoria()));
+        holder.textViewMedia.setText( facebookPageItem.getMedia() + "" );
     }
 
     @Override
@@ -56,16 +59,21 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         return facebookPageItems.size();
     }
 
+    public void removeAll() {
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView textViewNome;
-        public TextView textViewDescricao;
+        public TextView textViewCategoria;
+        public TextView textViewMedia;
 
         public ViewHolder(View itemView ){
             super(itemView);
 
             textViewNome = (TextView) itemView.findViewById(R.id.facebookPageItemHead );
-            textViewDescricao = (TextView) itemView.findViewById(R.id.facebookPageItemDesc);
+            textViewCategoria = (TextView) itemView.findViewById(R.id.facebookPageItemCategoria);
+            textViewMedia = (TextView) itemView.findViewById(R.id.facebookPageItemMedia);
         }
     }
 

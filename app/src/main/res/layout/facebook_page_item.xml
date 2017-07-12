@@ -24,10 +24,18 @@
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"/>
 
             <TextView
-                android:id="@+id/facebookPageItemDesc"
-                android:text="Descrição"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:id="@+id/facebookPageItemCategoria"
+                android:text="Categoria"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"/>
+
+            <TextView
+                android:id="@+id/facebookPageItemMedia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:text="Categoria" />
 
 
         </LinearLayout>

@@ -32,6 +32,9 @@ import com.facebook.login.widget.LoginButton;
 
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
+import com.facebook.places.PlaceManager;
+import com.facebook.places.model.PlaceFields;
+import com.facebook.places.model.PlaceSearchRequestParams;
 
 
 import org.json.JSONArray;
@@ -102,31 +105,97 @@ public class MainActivity extends AppCompatActivity {
         final ArrayList<JSONObject> objectList = new ArrayList<JSONObject>();
 
         searchButton.setOnClickListener(new View.OnClickListener() {
+
+
+
             @Override
             public void onClick(View view) {
-                RequestsController.requestPlace(null, Integer.MAX_VALUE, 100, searchEditText.getText().toString(),
-                        new GraphRequest.GraphJSONArrayCallback() {
+
+                PlaceSearchRequestParams.Builder builder =
+                        new PlaceSearchRequestParams.Builder();
+
+                builder.setSearchText("Dança");
+                builder.setDistance(1000); // 1,000 meter maximum distance.
+                builder.setLimit(10);
+                builder.addField(PlaceFields.NAME);
+                builder.addField(PlaceFields.LOCATION);
+                builder.addField(PlaceFields.PHONE);
+                builder.addField(PlaceFields.CATEGORY_LIST);
+                builder.addField(PlaceFields.ABOUT);
+                builder.addField(PlaceFields.COVER);
+                builder.addField(PlaceFields.IS_VERIFIED);
+                builder.addField(PlaceFields.ENGAGEMENT);
+                builder.addField(PlaceFields.OVERALL_STAR_RATING);
+
+// Get the current location from LocationManager or FusedLocationProviderApi
+
+                GraphRequest request =
+                        PlaceManager.newPlaceSearchRequestForLocation(builder.build(), null);
+
+                request.setCallback(new GraphRequest.Callback() {
                     @Override
-                    public void onCompleted(JSONArray array, GraphResponse response) {
-                        for(int i = 0; i < array.length(); i++ )
-                        {
-                            try {
-                                JSONObject object = null;
-                                object = array.getJSONObject(i);
+                    public void onCompleted(GraphResponse response) {
 
-                                String nome = object.getString("name");
-                                String descricao = object.getString("id");
+                      JSONObject objeto = response.getJSONObject();
 
-                                adapter.addPage( new FacebookPageItem(nome, descricao));
+                        if( objeto != null ) {
+                            JSONArray jsonArray = objeto.optJSONArray("data");
+
+                            if( jsonArray != null ) {
+                                for( int i = 0; i < jsonArray.length(); i++ ) {
+
+                                    try {
+                                        JSONObject item = jsonArray.getJSONObject(i);
+
+                                        String nome = item.getString("name");
+                                        String id = item.getString("id");
+                                        String telefone = item.optString("phone");
+                                        String local = item.optString("location");
+                                        String categoria = item.optString("category_list");
+                                        String descricao = item.optString("about");
+                                        String capa = item.optString("cover");
+                                        boolean verificada = item.optBoolean("is_verified");
+                                        String engajamento = item.optString("engagement");
+                                        Double media = item.optDouble("overall_star_rating");
 
 
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+/*
+                                    System.out.println( item.getString("name"));
+                                    System.out.println( item.getString("id"));
+                                    System.out.println( item.getString("phone"));
+                                    System.out.println( item.getString("location"));
+                                    System.out.println( item.getString("category_list"));
+                                    System.out.println( item.getString("about"));
+                                    System.out.println( item.getString("cover"));
+                                    System.out.println( item.getBoolean("is_verified"));
+                                    System.out.println( item.getString("engagement"));
+                                    System.out.println( item.getDouble("overall_star_rating"));
+
+                                    System.out.println( );
+                                    System.out.println( "======================================");
+
+                                    Iterator<String> string = item.keys();
+
+                                    while ( string.hasNext() ) {
+                                        System.out.println( string.next() );
+                                    } */
+
+                                        //facebookPageItems.add( new FacebookPageItem(nome, id, telefone, local))
+                                        adapter.addPage(new FacebookPageItem(nome, id, telefone, local, categoria, descricao,
+                                                capa, verificada, engajamento, media ));
+
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                }
                             }
-
                         }
                     }
-                }, context );
+                });
+
+                request.executeAsync();
+                System.out.println("Método");
             }
 
 

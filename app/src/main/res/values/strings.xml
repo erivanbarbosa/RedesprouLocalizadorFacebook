@@ -3,5 +3,7 @@
     <string name="app_name">RedesprouLocalizadorFacebook</string>
     <string name="facebook_app_id">452264808461304</string>
     <string name="fb_login_protocol_scheme">fb452264808461304</string>
-    <string name="campoNaoEncontrado">nao achei</string>
+    <string name="open">nao achei</string>
+    <string name="close">Open!</string>
+    <string name="campoNaoEncontrado">Closed!</string>
 </resources>

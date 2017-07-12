@@ -1,19 +1,17 @@
 package com.redesprou.redesproulocalizadorfacebook;
 
-import android.app.Activity;
+
 import android.content.Context;
 import android.content.Intent;
-import android.hardware.camera2.params.Face;
-import android.support.v4.app.FragmentActivity;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.telecom.Call;
 import android.util.Log;
-import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,30 +22,21 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
 import com.facebook.places.PlaceManager;
 import com.facebook.places.model.PlaceFields;
 import com.facebook.places.model.PlaceSearchRequestParams;
 import com.redesprou.redesproulocalizadorfacebook.util.PlaceFieldsUtil;
-
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
-
 import static com.facebook.GraphRequest.*;
 import static com.facebook.internal.FacebookDialogFragment.TAG;
 
@@ -61,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     private ItemAdapter adapter;
     private List<FacebookPageItem> facebookPageItems;
+    private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle actionBarDrawerToggle;
     Context context;
 
     @Override
@@ -68,19 +59,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        facebookPageItems = new ArrayList<FacebookPageItem>();
-
-        adapter = new ItemAdapter(facebookPageItems, this);
-        recyclerView.setAdapter(adapter);
-
-        //final ItemAdapter itemAdapter = new ItemAdapter();
-        callbackManager = CallbackManager.Factory.create();
 
         initViews();
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        facebookPageItems = new ArrayList<FacebookPageItem>();
+        adapter = new ItemAdapter(facebookPageItems, this);
+        recyclerView.setAdapter(adapter);
+        callbackManager = CallbackManager.Factory.create();
+
+
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         final List<String> permitions = Arrays.asList("email", "public_profile", "user_friends", "user_location", "user_likes");
         loginButton.setReadPermissions(permitions);
 
@@ -109,17 +101,18 @@ public class MainActivity extends AppCompatActivity {
 
         searchButton.setOnClickListener(new View.OnClickListener() {
 
-
-
             @Override
             public void onClick(View view) {
+
+                adapter.removeAll();
+                String searchText = searchEditText.getText().toString();
 
                 PlaceSearchRequestParams.Builder builder =
                         new PlaceSearchRequestParams.Builder();
 
-                builder.setSearchText("Dança");
-                builder.setDistance(1000); // 1,000 meter maximum distance.
-                builder.setLimit(10);
+                builder.setSearchText(searchText);
+                builder.setDistance(1000);
+                builder.setLimit(50);
                 builder.addField(PlaceFields.NAME);
                 builder.addField(PlaceFields.LOCATION);
                 builder.addField(PlaceFields.PHONE);
@@ -129,8 +122,6 @@ public class MainActivity extends AppCompatActivity {
                 builder.addField(PlaceFields.IS_VERIFIED);
                 builder.addField(PlaceFields.ENGAGEMENT);
                 builder.addField(PlaceFields.OVERALL_STAR_RATING);
-
-// Get the current location from LocationManager or FusedLocationProviderApi
 
                 GraphRequest request =
                         PlaceManager.newPlaceSearchRequestForLocation(builder.build(), null);
@@ -182,7 +173,6 @@ public class MainActivity extends AppCompatActivity {
                                             telefone = valor;
                                         }
 
-
                                         String endereco = "";
                                         JSONObject enderecoJson = item.getJSONObject("location");
                                         endereco = "Address: " + enderecoJson.optString("street") + " - " + enderecoJson.optString("zip") + " - "
@@ -191,37 +181,10 @@ public class MainActivity extends AppCompatActivity {
 
                                         String nome = item.getString("name");
                                         String id = item.getString("id");
-
-                                        String local = item.optString("location");
-                                        String categoria = item.optString("category_list");
                                         String descricao = "Description: " + item.optString("about");
-                                        String capa = item.optString("cover");
                                         boolean verificada = item.optBoolean("is_verified");
-                                        //String engajamento = item.optString("engagement");
                                         Double media = item.optDouble("overall_star_rating");
 
-/*
-                                    System.out.println( item.getString("name"));
-                                    System.out.println( item.getString("id"));
-                                    System.out.println( item.getString("phone"));
-                                    System.out.println( item.getString("location"));
-                                    System.out.println( item.getString("category_list"));
-                                    System.out.println( item.getString("about"));
-                                    System.out.println( item.getString("cover"));
-                                    System.out.println( item.getBoolean("is_verified"));
-                                    System.out.println( item.getString("engagement"));
-                                    System.out.println( item.getDouble("overall_star_rating"));
-
-                                    System.out.println( );
-                                    System.out.println( "======================================");
-
-                                    Iterator<String> string = item.keys();
-
-                                    while ( string.hasNext() ) {
-                                        System.out.println( string.next() );
-                                    } */
-
-                                        //facebookPageItems.add( new FacebookPageItem(nome, id, telefone, local))
                                         adapter.addPage(new FacebookPageItem(nome, id, telefone, endereco, PlaceFieldsUtil.tratarCategorias(categorias), descricao,
                                                 cover, verificada, engajamento, media ));
 
@@ -236,12 +199,17 @@ public class MainActivity extends AppCompatActivity {
                 });
 
                 request.executeAsync();
-                System.out.println("Método");
             }
-
-
         });
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(actionBarDrawerToggle.onOptionsItemSelected(item)){
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void initViews() {
@@ -249,6 +217,9 @@ public class MainActivity extends AppCompatActivity {
         searchButton = (Button) findViewById(R.id.search_button);
         searchEditText = (EditText) findViewById(R.id.search_EditText);
         numberOfResultsSpinner = (Spinner) findViewById(R.id.search_Spinner);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
     }
 
     @Override
@@ -256,7 +227,6 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
-
 
     public static void PlaceRequest(int resultLimit, String searchText, GraphJSONArrayCallback callback, Context context) {
         try {
@@ -271,8 +241,6 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             Toast.makeText(context, "Digite um valor válido!", Toast.LENGTH_LONG).show();
         }
-
-
     }
 
 

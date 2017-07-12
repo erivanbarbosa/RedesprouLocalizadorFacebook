@@ -147,6 +147,15 @@ public class MainActivity extends AppCompatActivity {
                                     try {
                                         JSONObject item = jsonArray.getJSONObject(i);
 
+                                        String cover = "";
+                                        JSONObject coverPhotoJson = item.getJSONObject("cover");
+                                        if( coverPhotoJson != null ) {
+                                            cover = coverPhotoJson.optString("source");
+
+                                            System.out.println( "Source:   " + cover );
+                                        }
+
+
                                         String nome = item.getString("name");
                                         String id = item.getString("id");
                                         String telefone = item.optString("phone");
@@ -157,7 +166,6 @@ public class MainActivity extends AppCompatActivity {
                                         boolean verificada = item.optBoolean("is_verified");
                                         String engajamento = item.optString("engagement");
                                         Double media = item.optDouble("overall_star_rating");
-
 
 /*
                                     System.out.println( item.getString("name"));
@@ -182,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
 
                                         //facebookPageItems.add( new FacebookPageItem(nome, id, telefone, local))
                                         adapter.addPage(new FacebookPageItem(nome, id, telefone, local, categoria, descricao,
-                                                capa, verificada, engajamento, media ));
+                                                cover, verificada, engajamento, media ));
 
                                     } catch (JSONException e) {
                                         e.printStackTrace();

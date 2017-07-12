@@ -6,9 +6,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.redesprou.redesproulocalizadorfacebook.util.PlaceFieldsUtil;
+import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
@@ -52,6 +54,13 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         holder.textViewNome.setText(facebookPageItem.getNome());
         holder.textViewCategoria.setText(PlaceFieldsUtil.tratarCategoria(facebookPageItem.getCategoria()));
         holder.textViewMedia.setText( facebookPageItem.getMedia() + "" );
+
+
+        String cover = facebookPageItem.getCapa();
+        if( !cover.isEmpty() ) {
+            Picasso.with(context).load(cover).resize(300,300)
+                    .into(holder.imageView);
+        }
     }
 
     @Override
@@ -67,6 +76,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         public TextView textViewNome;
         public TextView textViewCategoria;
         public TextView textViewMedia;
+        public ImageView imageView;
 
         public ViewHolder(View itemView ){
             super(itemView);
@@ -74,6 +84,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             textViewNome = (TextView) itemView.findViewById(R.id.facebookPageItemHead );
             textViewCategoria = (TextView) itemView.findViewById(R.id.facebookPageItemCategoria);
             textViewMedia = (TextView) itemView.findViewById(R.id.facebookPageItemMedia);
+            imageView = (ImageView) itemView.findViewById(R.id.facebookPageItemImage);
+
         }
     }
 

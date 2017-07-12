@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -35,6 +36,7 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.places.PlaceManager;
 import com.facebook.places.model.PlaceFields;
 import com.facebook.places.model.PlaceSearchRequestParams;
+import com.redesprou.redesproulocalizadorfacebook.util.PlaceFieldsUtil;
 
 
 import org.json.JSONArray;
@@ -64,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -155,16 +158,46 @@ public class MainActivity extends AppCompatActivity {
                                             System.out.println( "Source:   " + cover );
                                         }
 
+                                        String categorias = "";
+                                        JSONArray categoriasJsonArray = item.getJSONArray("category_list");
+                                        if( categoriasJsonArray != null && categoriasJsonArray.length() > 0 )
+                                        {
+                                            for(int j = 0; j < categoriasJsonArray.length(); j++ ) {
+                                                JSONObject categoriasJson = categoriasJsonArray.getJSONObject(j);
+
+                                                if( categoriasJson != null ) {
+                                                    categorias += categorias + ", " + categoriasJson.optString("name");
+                                                }
+
+                                            }
+                                        }
+
+                                        String engajamento = "";
+                                        JSONObject engajamentoJson = item.getJSONObject("engagement");
+                                        engajamento = "Visitors: " + engajamentoJson.optString("count") + "     -    " + engajamentoJson.optString("social_sentence");
+
+                                        String telefone = item.optString("phone");
+                                        if( !telefone.isEmpty() ) {
+                                            String valor = "Phone: " + telefone.substring(1, 3) +  telefone.substring(4);
+                                            telefone = valor;
+                                        }
+
+
+                                        String endereco = "";
+                                        JSONObject enderecoJson = item.getJSONObject("location");
+                                        endereco = "Address: " + enderecoJson.optString("street") + " - " + enderecoJson.optString("zip") + " - "
+                                                + enderecoJson.optString("city") + " - " + enderecoJson.optString("country");
+
 
                                         String nome = item.getString("name");
                                         String id = item.getString("id");
-                                        String telefone = item.optString("phone");
+
                                         String local = item.optString("location");
                                         String categoria = item.optString("category_list");
-                                        String descricao = item.optString("about");
+                                        String descricao = "Description: " + item.optString("about");
                                         String capa = item.optString("cover");
                                         boolean verificada = item.optBoolean("is_verified");
-                                        String engajamento = item.optString("engagement");
+                                        //String engajamento = item.optString("engagement");
                                         Double media = item.optDouble("overall_star_rating");
 
 /*
@@ -189,7 +222,7 @@ public class MainActivity extends AppCompatActivity {
                                     } */
 
                                         //facebookPageItems.add( new FacebookPageItem(nome, id, telefone, local))
-                                        adapter.addPage(new FacebookPageItem(nome, id, telefone, local, categoria, descricao,
+                                        adapter.addPage(new FacebookPageItem(nome, id, telefone, endereco, PlaceFieldsUtil.tratarCategorias(categorias), descricao,
                                                 cover, verificada, engajamento, media ));
 
                                     } catch (JSONException e) {

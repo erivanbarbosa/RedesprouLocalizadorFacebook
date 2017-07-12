@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:id="@+id/facebookPageDialogImage"
+                android:padding="10dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="teste"
+                android:id="@+id/facebookPageDialogNome"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                android:textAlignment="center"
+                android:layout_margin="10dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="teste"
+                android:id="@+id/facebookPageDialogCategoria"
+                android:layout_margin="5dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="teste"
+                android:id="@+id/facebookPageDialogEngajamento"
+                android:layout_margin="5dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="teste"
+                android:id="@+id/facebookPageDialogTelefone"
+                android:layout_margin="5dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="teste"
+                android:id="@+id/facebookPageDialogSobre"
+                android:layout_margin="5dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="teste"
+                android:id="@+id/facebookPageDialogLocal"
+                android:textAlignment="center"
+                android:layout_margin="5dp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="Salvar"
+                    android:textAppearance="@style/TextAppearance.AppCompat"
+                    android:textColor="@color/com_facebook_button_login_silver_background_color"
+                    android:background="@drawable/com_facebook_button_background"
+                    android:layout_marginLeft="40dp"
+                    android:layout_alignParentLeft="true"/>
+
+                <Button
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="Agendar"
+                    android:textAppearance="@style/TextAppearance.AppCompat"
+                    android:textColor="@color/com_facebook_button_login_silver_background_color"
+                    android:background="@drawable/com_facebook_button_background"
+                    android:layout_marginRight="40dp"
+                   android:layout_alignParentRight="true"/>
+
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</FrameLayout>

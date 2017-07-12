@@ -1,11 +1,15 @@
 package com.redesprou.redesproulocalizadorfacebook;
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.hardware.camera2.params.Face;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -32,8 +36,23 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     private List<FacebookPageItem> facebookPageItems;
     private Context context;
 
+    public List<FacebookPageItem> getFacebookPageItems() {
+        return facebookPageItems;
+    }
 
-    /*
+    public void setFacebookPageItems(List<FacebookPageItem> facebookPageItems) {
+        this.facebookPageItems = facebookPageItems;
+    }
+
+    public Context getContext() {
+        return context;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
+    }
+
+/*
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView mTextView;
         public ViewHolder(TextView v) {
@@ -53,6 +72,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     public void onBindViewHolder(ItemAdapter.ViewHolder holder, int position) {
         final FacebookPageItem facebookPageItem = facebookPageItems.get(position);
 
+        final FacebookPageDialogActivity ctx = new FacebookPageDialogActivity();
         holder.textViewNome.setText(facebookPageItem.getNome());
         holder.textViewCategoria.setText(PlaceFieldsUtil.tratarCategoria(facebookPageItem.getCategoria()));
         holder.textViewMedia.setText( facebookPageItem.getMedia() + "" );
@@ -67,7 +87,14 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "Clicou" + facebookPageItem.getNome(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(context, "Clicou" + facebookPageItem.getNome(), Toast.LENGTH_LONG).show();
+
+
+                android.app.FragmentManager manager = ((Activity) context).getFragmentManager();
+                FacebookPageDialogActivity facebookPageDialogActivity = new FacebookPageDialogActivity();
+                facebookPageDialogActivity.setFacebookPageItem( facebookPageItem );
+                facebookPageDialogActivity.show(manager, "MyDialog");
+
             }
         });
     }

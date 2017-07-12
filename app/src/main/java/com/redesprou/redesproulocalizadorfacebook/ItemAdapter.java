@@ -7,7 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.redesprou.redesproulocalizadorfacebook.util.PlaceFieldsUtil;
 import com.squareup.picasso.Picasso;
@@ -49,7 +51,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ItemAdapter.ViewHolder holder, int position) {
-        FacebookPageItem facebookPageItem = facebookPageItems.get(position);
+        final FacebookPageItem facebookPageItem = facebookPageItems.get(position);
 
         holder.textViewNome.setText(facebookPageItem.getNome());
         holder.textViewCategoria.setText(PlaceFieldsUtil.tratarCategoria(facebookPageItem.getCategoria()));
@@ -61,6 +63,13 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             Picasso.with(context).load(cover).resize(300,300)
                     .into(holder.imageView);
         }
+
+        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context, "Clicou" + facebookPageItem.getNome(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     @Override
@@ -77,6 +86,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         public TextView textViewCategoria;
         public TextView textViewMedia;
         public ImageView imageView;
+        public RelativeLayout relativeLayout;
 
         public ViewHolder(View itemView ){
             super(itemView);
@@ -85,7 +95,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             textViewCategoria = (TextView) itemView.findViewById(R.id.facebookPageItemCategoria);
             textViewMedia = (TextView) itemView.findViewById(R.id.facebookPageItemMedia);
             imageView = (ImageView) itemView.findViewById(R.id.facebookPageItemImage);
-
+            relativeLayout = (RelativeLayout) itemView.findViewById(R.id.RelativeLayout);
         }
     }
 
